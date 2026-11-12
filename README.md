@@ -27,8 +27,9 @@ This project is built using .NET 10.0. To set up the project, follow these steps
    Microsoft.EntityFrameworkCore -v 10.0.15
    Microsoft.EntityFrameworkCore.Design -v 10.0.15
    Microsoft.EntityFrameworkCore.Tools -v 10.0.15
-6. Run Update-Database to create the database schema.
-7. Build the project to ensure everything is set up correctly.
+6. Update the database connection string in the MyDbContext.cs file to point to your local database server.
+7. Run Update-Database to create the database schema.
+. Build the project to ensure everything is set up correctly.
 ```
 
 ## Seeding the database
