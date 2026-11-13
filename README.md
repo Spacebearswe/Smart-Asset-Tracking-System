@@ -3,8 +3,56 @@
 Smart Asset Tracking System is a c# program for handling assets with categories.
 The program allows users to add, delete, edit, remove and view assets.
 
-## Shows how Entity Framework Core's Table Per Hierarchy (TPH) inheritance strategy
-How relational databases can be used to store and manage data for different types of assets in a single table while differentiating them using a discriminator column. 
+To make the code more maintainable and extensible, we can use inheritance to create a class hierarchy for different types of assets. The base class `Asset` will contain common properties such as `Brand` and `Model`, while derived classes will represent specific asset types like `Laptop`, `DesktopComputer`, `Samsung`, `IPhone`, `Nokia`, and `Tablet`.
+
+This program was witten to dig into the inner workings of entity framework core.
+To find how it stores a hierarchy of classes
+## Class Diagram
+
+```p
+Asset (Base class) with Brand and Model properties
+	- ComputerAsset
+		- Laptop
+		- Desktop
+	- MobileAsset
+		- Smartphone
+		- Tablet
+```
+
+## The solution of the challange
+
+For this we have to use the Entity Framework Core's Table Per Hierarchy (TPH) inheritance strategy. This allows us to store all asset types in a single table while differentiating them using a discriminator column.
+
+```p
+  protected override void OnModelCreating(ModelBuilder modelBuilder) => modelBuilder.Entity<Asset>()
+		.HasDiscriminator<string>("AssetType")
+        .HasValue<Laptop>("Laptop")
+        .HasValue<DesktopComputer>("DesktopComputer")
+        .HasValue<Samsung>("Samsung")
+        .HasValue<IPhone>("IPhone")
+        .HasValue<Nokia>("Nokia")
+        .HasValue<Tablet>("Tablet");
+```
+
+## How it works in the database
+
+It creates a single table called `Assets` in the database with the following columns:
+```p
+[Id]
+[Brand]
+[Model]
+[AssetType]
+```
+
+The column AssetType stores the name of the inherited class so entity frame work knows there it belongs.
+
+Then we seed the database with some initial data for each asset type using the `UseSeeding` method in the `OnConfiguring` method of the `MyDbContext` class we get the following data.
+```p
+Id	Brand	Model	    AssetType
+1	HP	    Elitebook	Laptop
+2	Dell	Latitude	Laptop
+3	NULL	S26	        Samsung
+```
 
 ## Installation
 
@@ -27,8 +75,9 @@ This project is built using .NET 10.0. To set up the project, follow these steps
    Microsoft.EntityFrameworkCore -v 10.0.15
    Microsoft.EntityFrameworkCore.Design -v 10.0.15
    Microsoft.EntityFrameworkCore.Tools -v 10.0.15
-6. Run Update-Database to create the database schema.
-7. Build the project to ensure everything is set up correctly.
+6. Update the database connection string in the MyDbContext.cs file to point to your local database server.
+7. Run Update-Database to create the database schema.
+. Build the project to ensure everything is set up correctly.
 ```
 
 ## Seeding the database
@@ -74,52 +123,6 @@ Create the database with the new migration using the following command in the Pa
 ```p
 Update-Database
 ```
-## Class Diagram
-
-```p
-Asset (Base class) with Brand and Model properties
-	- ComputerAsset
-		- Laptop
-		- Desktop
-	- MobileAsset
-		- Smartphone
-		- Tablet
-```
-
-To make the code more maintainable and extensible, we can use inheritance to create a class hierarchy for different types of assets. The base class `Asset` will contain common properties such as `Brand` and `Model`, while derived classes will represent specific asset types like `Laptop`, `DesktopComputer`, `Samsung`, `IPhone`, `Nokia`, and `Tablet`.
-
-For this we have to use the Entity Framework Core's Table Per Hierarchy (TPH) inheritance strategy. This allows us to store all asset types in a single table while differentiating them using a discriminator column.
-
-```p
-  protected override void OnModelCreating(ModelBuilder modelBuilder) => modelBuilder.Entity<Asset>()
-		.HasDiscriminator<string>("AssetType")
-        .HasValue<Laptop>("Laptop")
-        .HasValue<DesktopComputer>("DesktopComputer")
-        .HasValue<Samsung>("Samsung")
-        .HasValue<IPhone>("IPhone")
-        .HasValue<Nokia>("Nokia")
-        .HasValue<Tablet>("Tablet");
-```
-
-## How it works in the database
-
-It creates a single table called `Assets` in the database with the following columns:
-```p
-[Id]
-[Brand]
-[Model]
-[AssetType]
-```
-Then we seed the database with some initial data for each asset type using the `UseSeeding` method in the `OnConfiguring` method of the `MyDbContext` class we get the following data.
-```p
-Id	Brand	Model	    AssetType
-1	HP	    Elitebook	Laptop
-2	Dell	Latitude	Laptop
-3	NULL	S26	        Samsung
-```
-
-
-
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
