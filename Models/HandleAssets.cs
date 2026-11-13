@@ -12,22 +12,25 @@ namespace Smart_Asset_Tracking_System
     {
 
         public void Add()
-        {
+        {   // Call the Add method from the AddAsset class
             AddAsset.Add();
         }
 
         public void Update()
         {
+            // Call the Update method from the UpdateAsset class
             UpdateAsset.Update();
         }
 
         public void Delete()
         {
+            // Call the Delete method from the DeleteAsset class
             DeleteAsset.Delete();
         }
 
         public void View()
         {
+            // Call the View method from the ViewAsset class
             ViewAsset.View();
         }
     }

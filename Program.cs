@@ -1,6 +1,11 @@
 ﻿
 using Smart_Asset_Tracking_System;
 
+// This is the main entry point of the application
+// It creates an instance of the HandleAssets class and displays a menu to the user
+// The user can choose to add, update, delete, or view assets in the database
+// The application will continue to run until the user chooses to quit
+
 var handleAssets = new HandleAssets();
 bool doRun = true;
 while (doRun)

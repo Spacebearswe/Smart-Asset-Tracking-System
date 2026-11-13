@@ -12,6 +12,7 @@ namespace Smart_Asset_Tracking_System
             using (var context = new MyDbContext())
             {
                 List<Laptop> laptops = context.Assets.OfType<Laptop>().ToList();
+                // List all the laptops in the database
                 foreach (var laptop in laptops)
                 {
                     Console.WriteLine(laptop is null
@@ -20,6 +21,7 @@ namespace Smart_Asset_Tracking_System
                 }
 
                 List<DesktopComputer> desktopComputers = context.Assets.OfType<DesktopComputer>().ToList();
+                // List all the desktop computers in the database
                 foreach (var desktopComputer in desktopComputers)
                 {
                     Console.WriteLine(desktopComputer is null
@@ -28,6 +30,7 @@ namespace Smart_Asset_Tracking_System
                 }
 
                 List<IPhone> IPhones = context.Assets.OfType<IPhone>().ToList();
+                // List all the iPhones in the database
                 foreach (var iphone in IPhones)
                 {
                     Console.WriteLine(iphone is null
@@ -36,6 +39,7 @@ namespace Smart_Asset_Tracking_System
                 }
 
                 List<Samsung> samsungs = context.Assets.OfType<Samsung>().ToList();
+                // List all the Samsungs in the database
                 foreach (var samsung in samsungs)
                 {
                     Console.WriteLine(samsung is null
@@ -44,6 +48,7 @@ namespace Smart_Asset_Tracking_System
                 }
 
                 List<Nokia> nokias = context.Assets.OfType<Nokia>().ToList();
+                // List all the Nokias in the database
                 foreach (var nokia in nokias)
                 {
                     Console.WriteLine(nokias is null

@@ -1,12 +1,13 @@
 # Smart Asset Tracking System
 
-Smart Asset Tracking System is a c# program for handling assets with categories.
+Smart Asset Tracking System program for handling assets with categories.
+Written in c# using entity framework to store the data.
 The program allows users to add, delete, edit, remove and view assets.
+
+This program was witten to dig into some of the inner workings of entity framework core.
 
 To make the code more maintainable and extensible, we can use inheritance to create a class hierarchy for different types of assets. The base class `Asset` will contain common properties such as `Brand` and `Model`, while derived classes will represent specific asset types like `Laptop`, `DesktopComputer`, `Samsung`, `IPhone`, `Nokia`, and `Tablet`.
 
-This program was witten to dig into the inner workings of entity framework core.
-To find how it stores a hierarchy of classes
 ## Class Diagram
 
 ```p
@@ -44,7 +45,7 @@ It creates a single table called `Assets` in the database with the following col
 [AssetType]
 ```
 
-The column AssetType stores the name of the inherited class so entity frame work knows there it belongs.
+The column AssetType stores the name of the inherited class so entity frame work knows there it belongs. 
 
 Then we seed the database with some initial data for each asset type using the `UseSeeding` method in the `OnConfiguring` method of the `MyDbContext` class we get the following data.
 ```p
@@ -53,6 +54,8 @@ Id	Brand	Model	    AssetType
 2	Dell	Latitude	Laptop
 3	NULL	S26	        Samsung
 ```
+The laptop class is not brand specific so it can handle both Brand and Model.  
+Then we create a Samsung we already know it is a Samsung because it uses the Samsung derivate class, therefor the we do not need any data in the Brand column.
 
 ## Installation
 
@@ -67,7 +70,7 @@ This project is built using .NET 10.0. To set up the project, follow these steps
 3. Open the project in your preferred IDE (e.g., Visual Studio, Visual Studio Code).
 4. Restore the project dependencies.
 5. The program is using Entity Framework, ensure that you have the necessary database setup and connection strings configured in the appsettings.json file.
-6, If you need, then install the required NuGet packages for Entity Framework and any other dependencies.
+6, If you need, then install the required NuGet packages for Entity Framework and     any other dependencies.
    For CLI use dotnet add package
    For NuGet Package Manager Console use Install-Package
    Microsoft.EntityFrameworkCore.SqlServer -v 10.0.15
@@ -75,9 +78,9 @@ This project is built using .NET 10.0. To set up the project, follow these steps
    Microsoft.EntityFrameworkCore -v 10.0.15
    Microsoft.EntityFrameworkCore.Design -v 10.0.15
    Microsoft.EntityFrameworkCore.Tools -v 10.0.15
-6. Update the database connection string in the MyDbContext.cs file to point to your local database server.
+6. Update the database connection string in the MyDbContext.cs file to point to       your local database server.
 7. Run Update-Database to create the database schema.
-. Build the project to ensure everything is set up correctly.
+8. Build the project to ensure everything is set up correctly.
 ```
 
 ## Seeding the database

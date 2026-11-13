@@ -12,13 +12,17 @@ namespace Smart_Asset_Tracking_System
     public class MyDbContext : DbContext
     {
         public DbSet<Asset> Assets { get; set; }
+
+        // Update the connection string with your actual database server name
         private readonly string _connectionString =
-            "Server=GREEN;Database=asset_tracking_systemEF;Integrated Security=True;Encrypt=True;TrustServerCertificate=True;";
+            "Server=UpdateThis ;Database=asset_tracking_systemEF;Integrated Security=True;Encrypt=True;TrustServerCertificate=True;";
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_connectionString);
             //.LogTo(Console.WriteLine); // Enable logging to console for debugging purposes
+
+            // Seed the database with test data if it doesn't exist
             optionsBuilder
             .UseSqlServer(_connectionString)
             .UseSeeding((context, _) => // Synchronous seeding
