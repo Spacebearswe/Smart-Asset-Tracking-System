@@ -18,8 +18,8 @@ Asset (Base class) with Brand and Model properties
 	- MobileAsset
 		- Smartphone
 		- Tablet
-        - Samsung
-        - IPhone
+		- Samsung
+		- IPhone
 ```
 
 ## The solution of the challange
